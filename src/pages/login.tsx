@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Shield, Lock, Mail, X, Eye, EyeOff } from "lucide-react";
 
@@ -7,6 +7,13 @@ const DEMO_PASSWORD = "admin123";
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+    if (isAuthenticated) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [navigate]);
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
