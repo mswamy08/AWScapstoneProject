@@ -25,7 +25,8 @@ const AwsConnectModal = ({ open, onClose, onConnected }: Props) => {
 
     try {
       // 🔐 Call REAL backend
-      const res = await fetch("http://localhost:5000/api/aws/connect", {
+  const base = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
+  const res = await fetch(`${base}/api/aws/connect`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ roleArn }),

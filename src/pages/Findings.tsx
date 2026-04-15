@@ -89,7 +89,8 @@ export default function Findings() {
   const [findings, setFindings] = useState<UIFinding[]>([]);
   const [severityFilter, setSeverityFilter] = useState("All");
   const [statusFilter, setStatusFilter] = useState("All");
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+    const [expandedId, setExpandedId] = useState<string | null>(null);
+    const base = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
 
   /* ================= LOAD FINDINGS ================= */
 
@@ -97,7 +98,7 @@ export default function Findings() {
     const roleArn = localStorage.getItem("roleArn");
     if (!roleArn) return;
 
-    fetch("http://localhost:5000/api/aws/scan", {
+      fetch(`${base}/api/aws/scan`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ roleArn }),
